@@ -65,17 +65,17 @@ jobs:
     - name: Windows Package
       if: matrix.os == 'windows-latest'
       run: |
-        Compress-Archive -CompressionLevel 9 -DestinationPath ${{ steps.strings.outputs.build-output-dir }}/edgingstreak-windows-${{ github.ref }}.zip -Path ${{ steps.strings.outputs.build-output-dir }}/edgingstreak
+        Compress-Archive -CompressionLevel 9 -DestinationPath ${{ steps.strings.outputs.build-output-dir }}/edgingstreak-windows-${{ github.event.release.tag_name }}.zip -Path ${{ steps.strings.outputs.build-output-dir }}/edgingstreak
 
     - name: Linux Package
       if: matrix.os == 'ubuntu-latest'
       run: |
-        zip -9 ${{ steps.strings.outputs.build-output-dir }}/edgingstreak-linux-${{ github.ref }}-${{ matrix.c_compiler }}.zip ${{ steps.strings.outputs.build-output-dir }}/edgingstreak
+        zip -9 ${{ steps.strings.outputs.build-output-dir }}/edgingstreak-linux-${{ github.event.release.tag_name }}-${{ matrix.c_compiler }}.zip ${{ steps.strings.outputs.build-output-dir }}/edgingstreak
 
     - name: MacOS Package
       if: matrix.os == 'macos-latest'
       run: |
-        zip -9 ${{ steps.strings.outputs.build-output-dir }}/edgingstreak-macos-${{ github.ref }}.zip ${{ steps.strings.outputs.build-output-dir }}/edgingstreak
+        zip -9 ${{ steps.strings.outputs.build-output-dir }}/edgingstreak-macos-${{ github.event.release.tag_name }}.zip ${{ steps.strings.outputs.build-output-dir }}/edgingstreak
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
@@ -106,9 +106,8 @@ jobs:
         name: edgingstreak-macos-latest
     - name: Upload
       uses: softprops/action-gh-release@v2
-      if: startsWith(github.ref, 'refs/tags/')
       with:
-        name: edgingstreak ${{ github.ref }}
+        name: edgingstreak ${{ github.event.release.tag_name }}
         files: |
           *.zip
 
