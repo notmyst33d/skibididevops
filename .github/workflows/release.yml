@@ -65,7 +65,7 @@ jobs:
     - name: Windows Package
       if: matrix.os == 'windows-latest'
       run: |
-        Compress-Archive -DestinationPath ${{ steps.strings.outputs.build-output-dir }}/edgingstreak-windows-${{ github.ref_name }}.zip -Path ${{ steps.strings.outputs.build-output-dir }}/edgingstreak.exe
+        Compress-Archive -DestinationPath ${{ steps.strings.outputs.build-output-dir }}/edgingstreak-windows-${{ github.ref_name }}.zip -Path ${{ steps.strings.outputs.build-output-dir }}/Release/edgingstreak.exe
 
     - name: Linux Package
       if: matrix.os == 'ubuntu-latest'
