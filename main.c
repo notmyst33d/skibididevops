@@ -20,6 +20,9 @@
 #include <sys/sysinfo.h>
 #elif _WIN32
 #include <windows.h>
+#elif __APPLE__
+#include <time.h>
+#include <sys/sysctl.h>
 #else
 #error "Unsupported platform"
 #endif
@@ -31,6 +34,10 @@ long get_uptime() {
     return info.uptime;
 #elif _WIN32
     return GetTickCount64() / 1000;
+#elif __APPLE__
+    struct timeval ts;
+    sysctl((int[]){ CTL_KERN, KERN_BOOTTIME }, 2, &ts, sizeof(ts), NULL, 0);
+    return ts.tv_sec;
 #endif
 }
 
