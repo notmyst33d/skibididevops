@@ -15,10 +15,25 @@
  */
 
 #include <stdio.h>
-#include <sys/sysinfo.h>
 
-int main(void) {
+#ifdef __linux__
+#include <sys/sysinfo.h>
+#elif _WIN32
+#include <windows.h>
+#else
+#error "Unsupported platform"
+#endif
+
+long get_uptime() {
+#ifdef __linux__
     struct sysinfo info;
     sysinfo(&info);
-    printf("My edging steak is %ld seconds\n", info.uptime);
+    return info.uptime;
+#elif _WIN32
+    return GetTickCount64() / 1000;
+#endif
+}
+
+int main(void) {
+    printf("My edging steak is %ld seconds\n", get_uptime());
 }
