@@ -78,5 +78,6 @@ jobs:
       uses: softprops/action-gh-release@v2
       if: startsWith(github.ref, 'refs/tags/')
       with:
+        name: edgingstreak ${{ github.ref_name }}
         files: ${{ steps.strings.outputs.build-output-dir }}/*.zip
 
