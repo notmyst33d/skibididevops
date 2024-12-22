@@ -36,7 +36,7 @@ long get_uptime() {
     return GetTickCount64() / 1000;
 #elif __APPLE__
     struct timeval ts;
-    sysctl((int[]){ CTL_KERN, KERN_BOOTTIME }, 2, &ts, sizeof(ts), NULL, 0);
+    sysctl((int[]){ CTL_KERN, KERN_BOOTTIME }, 2, &ts, &sizeof(ts), NULL, 0);
     return ts.tv_sec;
 #endif
 }
