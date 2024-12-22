@@ -81,7 +81,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         overwrite: true
-        name: edgingstreak-${{ matrix.os }}
+        name: edgingstreak-${{ matrix.os }}-${{ matrix.c_compiler }}
         path: ${{ steps.strings.outputs.build-output-dir }}/*.zip
 
   release:
@@ -97,19 +97,18 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: edgingstreak-ubuntu-latest-clang
-    - name: Download edgingstreak-windows-latest
+    - name: Download edgingstreak-windows-latest-cl
       uses: actions/download-artifact@v4
       with:
-        name: edgingstreak-windows-latest
-    - name: Download edgingstreak-macos-latest
+        name: edgingstreak-windows-latest-cl
+    - name: Download edgingstreak-macos-latest-clang
       uses: actions/download-artifact@v4
       with:
-        name: edgingstreak-macos-latest
+        name: edgingstreak-macos-latest-clang
     - name: Upload
       uses: softprops/action-gh-release@v2
       with:
         name: edgingstreak ${{ github.ref_name }}
         files: |
           *.zip
-
 
