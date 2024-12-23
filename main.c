@@ -43,5 +43,5 @@ long get_uptime() {
 }
 
 int main(void) {
-    printf("My edging steak is %ld seconds\n", get_uptime());
+    printf("My edging streak is %ld seconds\n", get_uptime());
 }
